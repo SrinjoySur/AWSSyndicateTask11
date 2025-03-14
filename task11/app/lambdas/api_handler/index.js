@@ -136,7 +136,9 @@ async function handleSignin(event) {
       }
     };
     const authResponse = await cognito.adminInitiateAuth(params).promise();
-    return formatResponse(200);
+    return formatResponse(200, {
+      accessToken: authResponse.AuthenticationResult?.IdToken
+    });
   } catch (error) {
     return formatResponse(400, { error: error.message });
   }
